@@ -1,10 +1,10 @@
 type ButtonPropsType = {
     buttonTitle: string
-    inc: () => void
+    foo: () => void
 }
 
 export const Button = (props: ButtonPropsType) => {
     return (
-        <button onClick={props.inc}>{props.buttonTitle}</button>
+        <button onClick={props.foo}>{props.buttonTitle}</button>
     )
 }

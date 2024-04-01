@@ -3,15 +3,17 @@ import {Button} from './Button';
 type BoardPropsType = {
     boardValue: number
     inc: () => void
+    reset: () => void
 }
 
 export const Board = (props: BoardPropsType) => {
     return (
         <div>
-            {props.boardValue}
+            Board
+            <div>{localStorage.getItem("boardValue")}</div>
             <div>
-                <Button buttonTitle={'inc'} inc={props.inc}/>
-                <Button buttonTitle={'reset'}/>
+                <Button buttonTitle={'inc'} foo={props.inc}/>
+                <Button buttonTitle={'reset'} foo={props.reset}/>
             </div>
         </div>
     )
