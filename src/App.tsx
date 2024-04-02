@@ -5,34 +5,62 @@ import {Counter} from './Components/Counter';
 
 function App() {
 
-    let [boardValue, setBoardValue] = useState(0)
+    let [boardValue, setBoardValue] = useState(
+        Number(localStorage.getItem('boardValue')))
 
-    let [maxValue, setMaxValue] = useState(0)
+    let [maxLocalValue, setMaxLocalValue] = useState(
+        Number(localStorage.getItem('maxValue')))
 
-    let [minValue, setMinValue] = useState(0)
+    let [minLocalValue, setMinLocalValue] = useState(
+        Number(localStorage.getItem('minValue')))
 
-    let [maxLocalValue, setMaxLocalValue] = useState(0)
+    let [isIncDisabled, setIsIncDisabled] = useState(false)
 
-    let [minLocalValue, setMinLocalValue] = useState(0)
+    let [isResetDisabled, setIsResetDisabled] = useState(false)
+
+    let [isIncorrectValue, setIsIncorrectValue] = useState(false)
 
     function inc() {
         setBoardValue(++boardValue)
         localStorage.setItem('boardValue', JSON.stringify(boardValue))
+        if (Number(localStorage.getItem('boardValue')) === maxLocalValue) {
+            setIsIncDisabled(true)
+        }
     }
 
     function reset() {
+        setIsIncDisabled(false)
         setBoardValue(0)
-        localStorage.setItem('boardValue', '0')
+        localStorage.setItem('boardValue', JSON.stringify(minLocalValue))
     }
 
     function set() {
-        setMaxValue(maxLocalValue)
-        setMinValue(minLocalValue)
+        localStorage.setItem('maxValue', JSON.stringify(maxLocalValue))
+        localStorage.setItem('minValue', JSON.stringify(minLocalValue))
+        setBoardValue(minLocalValue)
+        localStorage.setItem('boardValue', JSON.stringify(minLocalValue))
+        setIsIncDisabled(false)
+        setIsResetDisabled(false)
     }
 
     return (<div className="App">
-        <Board boardValue={boardValue} reset={reset} inc={inc}/>
-        <Counter set={set} setMaxLocalValue={setMaxLocalValue} maxLocalValue={maxLocalValue}/>
+        <Board boardValue={boardValue}
+               reset={reset}
+               inc={inc}
+               maxLocalValue={maxLocalValue}
+               isIncDisabled={isIncDisabled}
+               isResetDisabled={isResetDisabled}
+               isIncorrectValue={isIncorrectValue}
+        />
+        <Counter set={set}
+                 setMaxLocalValue={setMaxLocalValue}
+                 maxLocalValue={maxLocalValue}
+                 setMinLocalValue={setMinLocalValue}
+                 minLocalValue={minLocalValue}
+                 setIsIncDisabled={setIsIncDisabled}
+                 setIsResetDisabled={setIsResetDisabled}
+                 setIsIncorrectValue={setIsIncorrectValue}
+        />
     </div>);
 }
 
