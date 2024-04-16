@@ -35,6 +35,11 @@ function App() {
     }
 
     function set() {
+        if (Number(localStorage.getItem('maxValue')) < 0 || Number(localStorage.getItem('minValue')) < 0) {
+            setIsIncorrectValue(true)
+        } else {
+            setIsIncorrectValue(false)
+        }
         localStorage.setItem('maxValue', JSON.stringify(maxLocalValue))
         localStorage.setItem('minValue', JSON.stringify(minLocalValue))
         setBoardValue(minLocalValue)

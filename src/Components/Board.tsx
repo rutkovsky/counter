@@ -19,7 +19,7 @@ export const Board = (props: BoardPropsType) => {
                 Number(localStorage.getItem('boardValue')) ===
                 props.maxLocalValue ? 'disabled' : ''}>
                 {props.isIncDisabled && props.isResetDisabled ? 'enter values and press set' :
-                    props.isIncorrectValue ? 'Incorrect value!' : localStorage.getItem('boardValue')}
+                    props.isIncorrectValue ? 'Incorrect value!' : Number(localStorage.getItem('boardValue'))}
             </div>
             <div>
                 <Button buttonTitle={'inc'} foo={props.inc} isBoardButtonsDisabled={props.isIncDisabled}/>
